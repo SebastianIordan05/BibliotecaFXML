@@ -27,7 +27,7 @@ import model.Libro;
 public class RemovebookController implements Initializable {
 
     @FXML
-    private TextField txtSearch;
+    public TextField txtSearch;
     @FXML
     private Button btnDelete;
     

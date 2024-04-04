@@ -7,13 +7,17 @@ package com.biblioteca.bibliotecafxml;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.application.Platform;
+import javafx.beans.Observable;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.TextArea;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.ListView;
 import javafx.stage.Stage;
 import model.Libro;
 
@@ -24,22 +28,21 @@ import model.Libro;
  */
 public class BookslistController implements Initializable {
 
-//    private Libro l;
-    @FXML
-    private TextArea txtaBooksList;
     @FXML
     private Button btnBackToOption;
     @FXML
     private Button btnBackToSearch;
     @FXML
     private Button btnBackToAdd;
+    @FXML
+    private ListView<String> lstBooks;
 
     @FXML
     private void switchToPrimary() throws IOException, Exception {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("primary.fxml"));
         Parent root = loader.load();
 
-        Stage stage = (Stage) txtaBooksList.getScene().getWindow();
+        Stage stage = (Stage) lstBooks.getScene().getWindow();
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
@@ -50,7 +53,7 @@ public class BookslistController implements Initializable {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("addbook.fxml"));
         Parent root = loader.load();
 
-        Stage stage = (Stage) txtaBooksList.getScene().getWindow();
+        Stage stage = (Stage) lstBooks.getScene().getWindow();
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
@@ -61,29 +64,32 @@ public class BookslistController implements Initializable {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("search.fxml"));
         Parent root = loader.load();
 
-        Stage stage = (Stage) txtaBooksList.getScene().getWindow();
+        Stage stage = (Stage) lstBooks.getScene().getWindow();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+    
+    @FXML
+    private void switchToRemove(String str) throws IOException, Exception {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("removebook.fxml"));
+        Parent root = loader.load();
+        
+        RemovebookController rmc = loader.getController();
+        rmc.txtSearch.setText(str);
+
+        Stage stage = (Stage) lstBooks.getScene().getWindow();
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
     }
 
     private void showBooks() {
-        StringBuilder str = new StringBuilder();
-
-//        for (int i = 1; i < Libro.books.size() + 1; i++) {
-//            Libro l = Libro.books.get(i);
-//            if (l != null)
-//                str.append(l.toString()).append("\n");
-////            else
-////                str.append("The book was removed!\n");
-//        }
         for (Libro libro : Libro.books.values()) {
-            if (libro != null)
-//                System.out.println(libro.toString());
-                str.append(libro.toString()).append("\n");
+            if (libro != null) {
+                lstBooks.getItems().add(libro.getTitolo());
+            }
         }
-
-        txtaBooksList.setText(str.toString());
     }
 
     /**
@@ -94,5 +100,35 @@ public class BookslistController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         showBooks();
+        
+        lstBooks.getSelectionModel().selectedItemProperty().addListener((final Observable e) -> {
+            String selectedItem = lstBooks.getSelectionModel().getSelectedItem();
+            Libro l = Libro.books.get(selectedItem);
+            
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Do you want to delete it? \n\n"
+                    + "Yes to go to the remove scene. \n"
+                    + "No to do nothing. \n"
+                    + "Exit to close the program");
+                alert.setHeaderText(l.toString());
+
+                ButtonType btnOK = new ButtonType("Si");
+                ButtonType btnNO = new ButtonType("No");
+                ButtonType btnEXIT = new ButtonType("Exit");
+
+                alert.getButtonTypes().setAll(btnOK, btnNO, btnEXIT);
+
+                alert.showAndWait().ifPresentOrElse(result -> {
+                    if (result == btnOK) {
+                        try {
+                            switchToRemove(selectedItem);
+                        } catch (Exception ex) {}
+                    } else if (result == btnNO) {
+                    } else if (result == btnEXIT) {
+                        Platform.exit();
+                    }
+                }, () -> {
+                    System.out.println("No button was clicked");
+                });
+        });
     }
 }

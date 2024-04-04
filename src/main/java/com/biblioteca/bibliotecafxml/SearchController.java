@@ -22,6 +22,17 @@ public class SearchController {
     private TextField txtParam;
     @FXML
     private Button btnSearch;
+    
+    @FXML
+    private void loadPrimary() throws IOException, Exception {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("primary.fxml"));
+        Parent root = loader.load();
+
+        Stage stage = (Stage) txtParam.getScene().getWindow();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
 
     // controllo se c'è scritto qualcosa nella TextFied, se si mi salvo il codice e poi mi salvo il libro assegnato a quel codice, con un Alert lo mostro a schermo
     @FXML
@@ -51,16 +62,5 @@ public class SearchController {
         } catch (NumberFormatException ex) {
         } catch (IllegalArgumentException ex) {
         }
-    }
-    
-    @FXML
-    private void loadPrimary() throws IOException, Exception {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("primary.fxml"));
-        Parent root = loader.load();
-
-        Stage stage = (Stage) txtParam.getScene().getWindow();
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
     }
 }
