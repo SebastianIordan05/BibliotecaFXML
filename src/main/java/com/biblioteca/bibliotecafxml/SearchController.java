@@ -34,29 +34,25 @@ public class SearchController {
         stage.show();
     }
 
-    // controllo se c'è scritto qualcosa nella TextFied, se si mi salvo il codice e poi mi salvo il libro assegnato a quel codice, con un Alert lo mostro a schermo
     @FXML
     private void searchBooksOnClick(final ActionEvent e) {
         try {
             if (txtParam.getText().trim().length() == 0) {
-                new Alert(Alert.AlertType.INFORMATION, "Wrong argument!").showAndWait();
+                new Alert(Alert.AlertType.ERROR, "Wrong argument!").showAndWait();
                 return;
             }
 
-//            int code = Integer.parseInt(txtParam.getText());
-            String code = txtParam.getText();
-            Libro found = Libro.books.get(code);
+            String c = txtParam.getText();
+            Libro f = Libro.books.get(c);
 
-            if (found == null) {
-                // mostro con un alert che il libro con quel codice non esiste 
-                Alert bookNotFound = new Alert(Alert.AlertType.INFORMATION, "No books found with the code: " + code);
+            if (f == null) {
+                Alert bookNotFound = new Alert(Alert.AlertType.ERROR, "No books found with the code: " + c);
                 bookNotFound.showAndWait();
                 txtParam.setText("");
                 return;
             }
             
-            // mostro con un Alert il libro trovato
-            Alert bookFound = new Alert(Alert.AlertType.INFORMATION, "Books found: " + found);
+            Alert bookFound = new Alert(Alert.AlertType.INFORMATION, "Books found: " + f);
             bookFound.showAndWait();
             txtParam.setText("");
         } catch (NumberFormatException ex) {

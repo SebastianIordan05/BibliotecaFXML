@@ -21,7 +21,6 @@ public class App extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         scene = new Scene(loadFXML("primary"), 640, 480);
-//        System.out.println("FILE_PATH: " + FILE_PATH);
         stage.setScene(scene);
         stage.show();
     }
@@ -31,7 +30,6 @@ public class App extends Application {
         return fxmlLoader.load();
     }
 
-    // serializzazione dei libri aggiunti nel file FILE_PATH alla chiusura del programma
     @Override
     public void stop() {
         Libro.saveBooks(Libro.books, new File(Libro.FILE_PATH));

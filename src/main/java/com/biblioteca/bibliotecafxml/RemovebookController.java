@@ -46,26 +46,22 @@ public class RemovebookController implements Initializable {
     private void searchBooksOnClick(final ActionEvent e) {
         try {
             if (txtSearch.getText().trim().length() == 0) {
-                new Alert(Alert.AlertType.INFORMATION, "Wrong argument!").showAndWait();
+                new Alert(Alert.AlertType.ERROR, "Wrong argument!").showAndWait();
                 return;
             }
 
-//            int code = Integer.parseInt(txtSearch.getText());
-            String code = txtSearch.getText();
-            Libro found = Libro.books.get(code);
+            String c = txtSearch.getText();
+            Libro f = Libro.books.get(c);
 
-            if (found == null) {
-                // mostro con un alert che il libro con quel codice non esiste 
-                new Alert(Alert.AlertType.INFORMATION, "No books found with the code: " + code).showAndWait();
+            if (f == null) {
+                new Alert(Alert.AlertType.ERROR, "No books found with the code: " + c).showAndWait();
                 txtSearch.setText("");
                 
                 return;
             }
             
-            // mostro con un Alert il libro trovato
-            new Alert(Alert.AlertType.INFORMATION, "Books found: " + found + ", Book removed!").showAndWait();
-//            Libro.books.remove(code);
-            Libro.books.replace(code, null);
+            new Alert(Alert.AlertType.INFORMATION, "Books found: " + f + ", Book removed!").showAndWait();
+            Libro.books.replace(c, null);
             txtSearch.setText("");
             
         } catch (NumberFormatException ex) {
@@ -75,6 +71,8 @@ public class RemovebookController implements Initializable {
 
     /**
      * Initializes the controller class.
+     * @param url
+     * @param rb
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {

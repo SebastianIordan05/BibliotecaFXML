@@ -25,7 +25,6 @@ public class AddbookController {
     @FXML
     private Button btnAdd;
 
-    // controllo se c'è scritto qualcosa nelle due TextField, se si creo un nuovo libro e lo aggiungo wrongNameOrAuthor Map<Integer, Libro> books
     @FXML
     public void checkAndAdd(final ActionEvent e) {
         if (txtBook.getText().trim().length() == 0 || txtBookAuthor.getText().trim().length() == 0) {
@@ -36,11 +35,9 @@ public class AddbookController {
             return;
         }
         
-        // creo un nuovo libro
-        Libro libro = new Libro(txtBook.getText(), txtBookAuthor.getText());
+        Libro l = new Libro(txtBook.getText(), txtBookAuthor.getText());
         
-        // aggiungo il libro creato alla map: Map<String, Libro>
-        Libro.books.put(txtBook.getText(), libro);
+        Libro.books.put(txtBook.getText(), l);
 
         
         txtBook.setText("");

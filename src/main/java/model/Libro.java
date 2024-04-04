@@ -8,6 +8,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.Objects;
 
@@ -22,9 +23,9 @@ public class Libro implements Comparable<Libro>, Serializable {
 
     private final String titolo;
     private final String autore;
-    
-    final public static String FILE_PATH = "./.books"; // path del file
-    public final static Map<String, Libro> books = loadBooks(new File(FILE_PATH)); // all'avvio del programma carica dal dile FILE_PATH i precedenti Libri serializzati
+
+    final public static String FILE_PATH = "./.books";
+    public final static Map<String, Libro> books = loadBooks(new File(FILE_PATH));
 
     public Libro(String titolo, String autore) {
         this.titolo = Objects.requireNonNull(titolo, "titolo non specificato");
@@ -86,34 +87,28 @@ public class Libro implements Comparable<Libro>, Serializable {
 
     @Override
     public String toString() {
-//        return "Libro (" + codice + ") \"" + titolo + "\" di " + autore;
-        return "Titolo: " + titolo + ", Autore: " + autore + ", Codice: " + codice + ".";
+        return "Titolo: " + titolo + ", Autore: " + autore + ", Codice: " + codice;
     }
 
     @Override
     public int compareTo(Libro o) {
         return Integer.compare(codice, o.codice);
     }
-    
-    // deserializzazione dei Libri da un file 
+
     private static Map<String, Libro> loadBooks(final File f) {
         try {
-            // controllo se il file esiste, se no lo creo
             if (!f.exists()) {
                 f.createNewFile();
                 return new HashMap<>();
             }
-            
-            // controllo se il file è leggibile
+
             if (!f.canRead()) {
                 return new HashMap<>();
             }
-            
-            // leggo da file i Libri serializzati
+
             final ObjectInputStream inputStream = new ObjectInputStream(new FileInputStream(f));
             final Map<String, Libro> book = (Map<String, Libro>) inputStream.readObject();
-            
-            // assegno al libro creato il suo codice identificativo
+
             Libro.lastCodice += book.size();
             return book;
 
@@ -124,20 +119,24 @@ public class Libro implements Comparable<Libro>, Serializable {
 
     }
 
-    // serializzazione dei Libri in un file 
     public static void saveBooks(final Map<String, Libro> books, final File f) {
         try {
-            // controllo se il file esiste, se no lo creo
             if (!f.exists()) {
                 f.createNewFile();
             }
-            
-            // controllo se il file è leggibile
+
             if (!f.canWrite()) {
                 return;
             }
             
-            // serializzo i Libri su file
+            Iterator<Map.Entry<String, Libro>> iterator = Libro.books.entrySet().iterator();
+            while (iterator.hasNext()) {
+                Map.Entry<String, Libro> entry = iterator.next();
+                if (entry.getValue() == null) {
+                    iterator.remove();
+                }
+            }
+
             final ObjectOutputStream outputStream = new ObjectOutputStream(new FileOutputStream(f));
             outputStream.writeObject(books);
         } catch (final IOException ex) {

@@ -102,29 +102,25 @@ public class BookslistController implements Initializable {
         showBooks();
         
         lstBooks.getSelectionModel().selectedItemProperty().addListener((final Observable e) -> {
-            String selectedItem = lstBooks.getSelectionModel().getSelectedItem();
-            Libro l = Libro.books.get(selectedItem);
+            String si = lstBooks.getSelectionModel().getSelectedItem();
+            Libro l = Libro.books.get(si);
             
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Do you want to delete it? \n\n"
                     + "Yes to go to the remove scene. \n"
-                    + "No to do nothing. \n"
-                    + "Exit to close the program");
+                    + "No to do nothing. \n");
                 alert.setHeaderText(l.toString());
 
                 ButtonType btnOK = new ButtonType("Si");
                 ButtonType btnNO = new ButtonType("No");
-                ButtonType btnEXIT = new ButtonType("Exit");
 
-                alert.getButtonTypes().setAll(btnOK, btnNO, btnEXIT);
+                alert.getButtonTypes().setAll(btnOK, btnNO);
 
                 alert.showAndWait().ifPresentOrElse(result -> {
                     if (result == btnOK) {
                         try {
-                            switchToRemove(selectedItem);
+                            switchToRemove(si);
                         } catch (Exception ex) {}
                     } else if (result == btnNO) {
-                    } else if (result == btnEXIT) {
-                        Platform.exit();
                     }
                 }, () -> {
                     System.out.println("No button was clicked");
