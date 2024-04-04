@@ -3,11 +3,10 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.biblioteca.bibliotecafxml.AddbookController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.biblioteca.bibliotecafxml.AddbookController">
    <children>
       <Label layoutX="235.0" layoutY="94.0" prefHeight="43.0" prefWidth="139.0" text="new book">
          <font>
@@ -26,20 +25,11 @@
          </font>
       </Label>
       <TextField fx:id="txtBookAuthor" layoutX="304.0" layoutY="200.0" promptText="author name" />
-      <HBox alignment="CENTER" layoutX="136.0" layoutY="248.0" prefHeight="50.0" prefWidth="295.0">
-         <children>
-            <Button fx:id="btnAdd" mnemonicParsing="false" onAction="#checkAndAdd" text="addBook">
-               <font>
-                  <Font size="23.0" />
-               </font>
-            </Button>
-            <Label prefHeight="17.0" prefWidth="31.0" />
-            <Button mnemonicParsing="false" onAction="#switchToPrimary" text="back">
-               <font>
-                  <Font size="23.0" />
-               </font>
-            </Button>
-         </children>
-      </HBox>
+      <Button fx:id="btnAdd" layoutX="265.0" layoutY="261.0" mnemonicParsing="false" onAction="#checkAndAdd" text="add">
+         <font>
+            <Font size="23.0" />
+         </font>
+      </Button>
+      <Button layoutX="15.0" layoutY="14.0" mnemonicParsing="false" onAction="#switchToPrimary" text="&lt;-" />
    </children>
 </Pane>

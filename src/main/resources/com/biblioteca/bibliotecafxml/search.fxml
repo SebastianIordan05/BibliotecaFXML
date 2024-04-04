@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.biblioteca.bibliotecafxml.SearchController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.biblioteca.bibliotecafxml.SearchController">
    <children>
       <HBox alignment="CENTER" layoutX="75.0" layoutY="139.0" prefHeight="28.0" prefWidth="451.0">
          <children>
@@ -27,23 +27,11 @@
             <Insets />
          </opaqueInsets>
       </HBox>
-      <HBox alignment="CENTER" layoutX="75.0" layoutY="178.0" prefHeight="28.0" prefWidth="451.0">
-         <opaqueInsets>
-            <Insets />
-         </opaqueInsets>
-         <children>
-            <Button fx:id="btnSearch" mnemonicParsing="false" onAction="#searchBooksOnClick" text="search">
-               <font>
-                  <Font size="23.0" />
-               </font>
-            </Button>
-            <Label prefHeight="17.0" prefWidth="50.0" />
-            <Button fx:id="btnBack" mnemonicParsing="false" onAction="#loadPrimary" text="back">
-               <font>
-                  <Font name="System" size="23.0" />
-               </font>
-            </Button>
-         </children>
-      </HBox>
+      <Button fx:id="btnSearch" layoutX="252.0" layoutY="200.0" mnemonicParsing="false" onAction="#searchBooksOnClick" text="search">
+         <font>
+            <Font size="23.0" />
+         </font>
+      </Button>
+      <Button fx:id="btnBack" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#loadPrimary" text="&lt;-" />
    </children>
 </Pane>

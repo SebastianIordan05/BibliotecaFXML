@@ -1,9 +1,12 @@
 package com.biblioteca.bibliotecafxml;
 
 import java.io.IOException;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.stage.Stage;
 
 /**
  *
@@ -15,21 +18,52 @@ public class PrimaryController {
     private Button btnSearch;
     @FXML
     private Button btnSearch1;
-
     @FXML
-    private void switchToSearch(final ActionEvent e) {
-        try {
-            App.setRoot("search");
-        } catch (final IOException ex) {
-        }
+    private Button btnBooksList;
+    @FXML
+    private Button btnDelete;
+    
+    @FXML
+    private void switchToSearch() throws IOException, Exception {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("search.fxml"));
+        Parent root = loader.load();
+
+        Stage stage = (Stage) btnSearch.getScene().getWindow();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
     }
-
+    
     @FXML
-    private void switchToAdd(final ActionEvent e) {
-        try {
-            App.setRoot("addbook");
-        } catch (final IOException ex) {
-        }
+    private void switchToAdd() throws IOException, Exception {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("addbook.fxml"));
+        Parent root = loader.load();
 
+        Stage stage = (Stage) btnSearch.getScene().getWindow();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+    
+    @FXML
+    private void switchToList() throws IOException, Exception {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("bookslist.fxml"));
+        Parent root = loader.load();
+
+        Stage stage = (Stage) btnSearch.getScene().getWindow();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+    
+    @FXML
+    private void switchToDelete() throws IOException, Exception {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("removebook.fxml"));
+        Parent root = loader.load();
+
+        Stage stage = (Stage) btnSearch.getScene().getWindow();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
     }
 }

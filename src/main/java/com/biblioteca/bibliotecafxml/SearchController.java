@@ -3,9 +3,13 @@ package com.biblioteca.bibliotecafxml;
 import java.io.IOException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 import model.Libro;
 
 /**
@@ -29,7 +33,7 @@ public class SearchController {
 
             int code = Integer.parseInt(txtParam.getText());
 
-            Libro found = App.books.get(code);
+            Libro found = Libro.books.get(code);
 
             if (found == null) {
                 // mostro con un alert che il libro con quel codice non esiste 
@@ -54,12 +58,15 @@ public class SearchController {
 
         txtParam.setText("");
     }
-
+    
     @FXML
-    private void loadPrimary(final ActionEvent e) {
-        try {
-            App.setRoot("primary");
-        } catch (final IOException ex) {
-        }
+    private void loadPrimary() throws IOException, Exception {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("primary.fxml"));
+        Parent root = loader.load();
+
+        Stage stage = (Stage) txtParam.getScene().getWindow();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
     }
 }
