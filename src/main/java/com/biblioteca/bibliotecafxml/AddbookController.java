@@ -40,7 +40,9 @@ public class AddbookController {
         Libro libro = new Libro(txtBook.getText(), txtBookAuthor.getText());
         
         // aggiungo il libro creato alla map: Map<Integer, Libro>
-        Libro.books.put(libro.getCodice(), libro);
+//        Libro.books.put(libro.getCodice(), libro);
+        Libro.books.put(txtBook.getText(), libro);
+
         
         txtBook.setText("");
         txtBookAuthor.setText("");

@@ -49,13 +49,15 @@ public class RemovebookController implements Initializable {
                 new Alert(Alert.AlertType.INFORMATION, "Wrong argument!").showAndWait();
             }
 
-            int code = Integer.parseInt(txtSearch.getText());
+//            int code = Integer.parseInt(txtSearch.getText());
+            String code = txtSearch.getText();
             Libro found = Libro.books.get(code);
 
             if (found == null) {
                 // mostro con un alert che il libro con quel codice non esiste 
                 new Alert(Alert.AlertType.INFORMATION, "No books found with the code: " + code).showAndWait();
                 txtSearch.setText("");
+                
                 return;
             }
             

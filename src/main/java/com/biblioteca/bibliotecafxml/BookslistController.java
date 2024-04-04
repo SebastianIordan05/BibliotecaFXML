@@ -25,7 +25,6 @@ import model.Libro;
 public class BookslistController implements Initializable {
 
 //    private Libro l;
-
     @FXML
     private TextArea txtaBooksList;
     @FXML
@@ -70,20 +69,27 @@ public class BookslistController implements Initializable {
 
     private void showBooks() {
         StringBuilder str = new StringBuilder();
-        
-        for (int i = 1; i < Libro.books.size() + 1; i++) {
-            Libro l = Libro.books.get(i);
-            if (l != null)
-                str.append(l.toString()).append("\n");
-//            else
-//                str.append("The book was removed!\n");
+
+//        for (int i = 1; i < Libro.books.size() + 1; i++) {
+//            Libro l = Libro.books.get(i);
+//            if (l != null)
+//                str.append(l.toString()).append("\n");
+////            else
+////                str.append("The book was removed!\n");
+//        }
+        for (Libro libro : Libro.books.values()) {
+            if (libro != null)
+//                System.out.println(libro.toString());
+                str.append(libro.toString()).append("\n");
         }
-        
+
         txtaBooksList.setText(str.toString());
     }
 
     /**
-     * Initializes the controller class.
+     * Initializes the controller
+     * @param url
+     * @param rb
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {

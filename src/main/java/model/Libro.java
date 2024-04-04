@@ -24,7 +24,7 @@ public class Libro implements Comparable<Libro>, Serializable {
     private final String autore;
     
     final public static String FILE_PATH = "./.books"; // path del file
-    public final static Map<Integer, Libro> books = loadBooks(new File(FILE_PATH)); // all'avvio del programma carica dal dile FILE_PATH i precedenti Libri serializzati
+    public final static Map<String, Libro> books = loadBooks(new File(FILE_PATH)); // all'avvio del programma carica dal dile FILE_PATH i precedenti Libri serializzati
 
     public Libro(String titolo, String autore) {
         this.titolo = Objects.requireNonNull(titolo, "titolo non specificato");
@@ -86,7 +86,8 @@ public class Libro implements Comparable<Libro>, Serializable {
 
     @Override
     public String toString() {
-        return "Libro (" + codice + ") \"" + titolo + "\" di " + autore;
+//        return "Libro (" + codice + ") \"" + titolo + "\" di " + autore;
+        return "Titolo: " + titolo + ", Autore: " + autore + ", Codice: " + codice + ".";
     }
 
     @Override
@@ -95,7 +96,7 @@ public class Libro implements Comparable<Libro>, Serializable {
     }
     
     // deserializzazione dei Libri da un file 
-    private static Map<Integer, Libro> loadBooks(final File f) {
+    private static Map<String, Libro> loadBooks(final File f) {
         try {
             // controllo se il file esiste, se no lo creo
             if (!f.exists()) {
@@ -110,7 +111,7 @@ public class Libro implements Comparable<Libro>, Serializable {
             
             // leggo da file i Libri serializzati
             final ObjectInputStream inputStream = new ObjectInputStream(new FileInputStream(f));
-            final Map<Integer, Libro> book = (Map<Integer, Libro>) inputStream.readObject();
+            final Map<String, Libro> book = (Map<String, Libro>) inputStream.readObject();
             
             // assegno al libro creato il suo codice identificativo
             Libro.lastCodice += book.size();
@@ -124,7 +125,7 @@ public class Libro implements Comparable<Libro>, Serializable {
     }
 
     // serializzazione dei Libri in un file 
-    public static void saveBooks(final Map<Integer, Libro> books, final File f) {
+    public static void saveBooks(final Map<String, Libro> books, final File f) {
         try {
             // controllo se il file esiste, se no lo creo
             if (!f.exists()) {

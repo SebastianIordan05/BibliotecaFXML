@@ -31,8 +31,8 @@ public class SearchController {
                 throw new IllegalArgumentException();
             }
 
-            int code = Integer.parseInt(txtParam.getText());
-
+//            int code = Integer.parseInt(txtParam.getText());
+            String code = txtParam.getText();
             Libro found = Libro.books.get(code);
 
             if (found == null) {
