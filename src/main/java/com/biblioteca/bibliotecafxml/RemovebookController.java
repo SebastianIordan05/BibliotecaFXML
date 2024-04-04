@@ -47,6 +47,7 @@ public class RemovebookController implements Initializable {
         try {
             if (txtSearch.getText().trim().length() == 0) {
                 new Alert(Alert.AlertType.INFORMATION, "Wrong argument!").showAndWait();
+                return;
             }
 
 //            int code = Integer.parseInt(txtSearch.getText());
@@ -65,17 +66,11 @@ public class RemovebookController implements Initializable {
             new Alert(Alert.AlertType.INFORMATION, "Books found: " + found + ", Book removed!").showAndWait();
 //            Libro.books.remove(code);
             Libro.books.replace(code, null);
+            txtSearch.setText("");
             
-            return;
         } catch (NumberFormatException ex) {
         } catch (IllegalArgumentException ex) {
         }
-        
-        // mostro con un alert che il codice inserito è sbagliato
-        Alert wrongCode = new Alert(Alert.AlertType.ERROR, "Wrong code!");
-        wrongCode.showAndWait();
-
-        txtSearch.setText("");
     }
 
     /**

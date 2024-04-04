@@ -28,7 +28,8 @@ public class SearchController {
     private void searchBooksOnClick(final ActionEvent e) {
         try {
             if (txtParam.getText().trim().length() == 0) {
-                throw new IllegalArgumentException();
+                new Alert(Alert.AlertType.INFORMATION, "Wrong argument!").showAndWait();
+                return;
             }
 
 //            int code = Integer.parseInt(txtParam.getText());
@@ -46,17 +47,10 @@ public class SearchController {
             // mostro con un Alert il libro trovato
             Alert bookFound = new Alert(Alert.AlertType.INFORMATION, "Books found: " + found);
             bookFound.showAndWait();
-
-            return;
+            txtParam.setText("");
         } catch (NumberFormatException ex) {
         } catch (IllegalArgumentException ex) {
         }
-        
-        // mostro con un alert che il codice inserito è sbagliato
-        Alert wrongCode = new Alert(Alert.AlertType.ERROR, "Wrong code!");
-        wrongCode.showAndWait();
-
-        txtParam.setText("");
     }
     
     @FXML
