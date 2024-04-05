@@ -19,7 +19,7 @@ import java.util.Objects;
 public class Libro implements Comparable<Libro>, Serializable {
 
     public static int lastCodice = 0;
-    private final int codice;
+    private int codice;
 
     private final String titolo;
     private final String autore;
@@ -128,7 +128,7 @@ public class Libro implements Comparable<Libro>, Serializable {
             if (!f.canWrite()) {
                 return;
             }
-            
+
             Iterator<Map.Entry<String, Libro>> iterator = Libro.books.entrySet().iterator();
             while (iterator.hasNext()) {
                 Map.Entry<String, Libro> entry = iterator.next();
@@ -137,10 +137,17 @@ public class Libro implements Comparable<Libro>, Serializable {
                 }
             }
 
+            int i = 0;
+            for (Libro libro : Libro.books.values()) {
+                i++;
+                if (libro != null) {
+                    libro.codice = i;
+                }
+            }
+
             final ObjectOutputStream outputStream = new ObjectOutputStream(new FileOutputStream(f));
             outputStream.writeObject(books);
         } catch (final IOException ex) {
         }
     }
-
 }

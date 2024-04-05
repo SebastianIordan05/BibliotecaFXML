@@ -8,12 +8,12 @@
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.biblioteca.bibliotecafxml.PrimaryController">
    <children>
-      <Label layoutX="249.0" layoutY="116.0" text="option menu">
+      <Label layoutX="56.0" layoutY="187.0" text="option menu">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <VBox alignment="CENTER" layoutX="233.0" layoutY="164.0" prefHeight="113.0" prefWidth="135.0">
+      <VBox alignment="CENTER" layoutX="233.0" layoutY="13.0" prefHeight="113.0" prefWidth="135.0">
          <children>
             <Button fx:id="btnSearch" mnemonicParsing="false" onAction="#switchToSearch" text="search book">
                <font>
@@ -36,6 +36,24 @@
                <font>
                   <Font size="18.0" />
                </font></Button>
+            <Label prefHeight="17.0" prefWidth="37.0" />
+            <Button fx:id="btnNewUtente" mnemonicParsing="false" onAction="#switchToNewUtente" text="new utente">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Button>
+            <Label prefHeight="17.0" prefWidth="37.0" />
+            <Button fx:id="btnNewPrestito" mnemonicParsing="false" onAction="#switchToNewPrestito" text="new prestito">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Button>
+            <Label prefHeight="17.0" prefWidth="37.0" />
+            <Button fx:id="btnPrestiti" mnemonicParsing="false" onAction="#switchToPrestiti" text="prestiti">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Button>
          </children>
       </VBox>
    </children>

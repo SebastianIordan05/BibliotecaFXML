@@ -22,6 +22,12 @@ public class PrimaryController {
     private Button btnBooksList;
     @FXML
     private Button btnDelete;
+    @FXML
+    private Button btnNewUtente;
+    @FXML
+    private Button btnNewPrestito;
+    @FXML
+    private Button btnPrestiti;
     
     @FXML
     private void switchToSearch() throws IOException, Exception {
@@ -59,6 +65,39 @@ public class PrimaryController {
     @FXML
     private void switchToDelete() throws IOException, Exception {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("removebook.fxml"));
+        Parent root = loader.load();
+
+        Stage stage = (Stage) btnSearch.getScene().getWindow();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+    
+    @FXML
+    private void switchToNewUtente() throws IOException, Exception {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("newutente.fxml"));
+        Parent root = loader.load();
+
+        Stage stage = (Stage) btnSearch.getScene().getWindow();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+    
+    @FXML
+    private void switchToNewPrestito() throws IOException, Exception {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("makeprestito.fxml"));
+        Parent root = loader.load();
+
+        Stage stage = (Stage) btnSearch.getScene().getWindow();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+    
+    @FXML
+    private void switchToPrestiti() throws IOException, Exception {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("listprestiti.fxml"));
         Parent root = loader.load();
 
         Stage stage = (Stage) btnSearch.getScene().getWindow();

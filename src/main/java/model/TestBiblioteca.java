@@ -11,7 +11,7 @@ public class TestBiblioteca {
      */
     public static void main(String[] args) {
         System.out.println("Hello world!!!");
-        Utente utente = new Utente("a", "b");
+        Utente utente = new Utente("a", "b", "password", "username");
         System.out.println(utente);
         Libro libro = new Libro("d", "c");
         System.out.println(libro);

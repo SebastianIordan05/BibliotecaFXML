@@ -30,7 +30,7 @@ public class RemovebookController implements Initializable {
     public TextField txtSearch;
     @FXML
     private Button btnDelete;
-    
+
     @FXML
     private void switchToPrimary() throws IOException, Exception {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("primary.fxml"));
@@ -41,42 +41,43 @@ public class RemovebookController implements Initializable {
         stage.setScene(scene);
         stage.show();
     }
-    
+
     @FXML
     private void searchBooksOnClick(final ActionEvent e) {
-        try {
-            if (txtSearch.getText().trim().length() == 0) {
-                new Alert(Alert.AlertType.ERROR, "Wrong argument!").showAndWait();
-                return;
-            }
-
-            String c = txtSearch.getText();
-            Libro f = Libro.books.get(c);
-
-            if (f == null) {
-                new Alert(Alert.AlertType.ERROR, "No books found with the code: " + c).showAndWait();
-                txtSearch.setText("");
-                
-                return;
-            }
-            
-            new Alert(Alert.AlertType.INFORMATION, "Books found: " + f + ", Book removed!").showAndWait();
-            Libro.books.replace(c, null);
-            txtSearch.setText("");
-            
-        } catch (NumberFormatException ex) {
-        } catch (IllegalArgumentException ex) {
+        if (txtSearch.getText().trim().length() == 0) {
+            new Alert(Alert.AlertType.ERROR, "Wrong argument!").showAndWait();
+            return;
         }
+
+        String c = txtSearch.getText();
+        Libro f = Libro.books.get(c);
+
+        if (f == null) {
+            new Alert(Alert.AlertType.ERROR, "No books found with the code: " + c).showAndWait();
+            txtSearch.setText("");
+            return;
+        }
+
+        new Alert(Alert.AlertType.INFORMATION, "Books found: " + f + ", Book removed!").showAndWait();
+        System.out.println("Book removed: " + f.toString());
+        
+        Libro.books.replace(c, null);
+        if (f.getCodice() == Libro.lastCodice)
+            Libro.lastCodice--;
+        
+        System.out.println("New Books: " + Libro.books);
+        txtSearch.setText("");
     }
 
     /**
      * Initializes the controller class.
+     *
      * @param url
      * @param rb
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-    }    
-    
+    }
+
 }

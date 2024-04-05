@@ -70,7 +70,6 @@ public class BookslistController implements Initializable {
         stage.show();
     }
     
-    @FXML
     private void switchToRemove(String str) throws IOException, Exception {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("removebook.fxml"));
         Parent root = loader.load();

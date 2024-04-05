@@ -8,6 +8,8 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import java.io.IOException;
 import model.Libro;
+import model.Prestito;
+import model.Utente;
 
 /**
  * JavaFX App
@@ -34,6 +36,10 @@ public class App extends Application {
     public void stop() {
         Libro.saveBooks(Libro.books, new File(Libro.FILE_PATH));
         System.out.println("Books saved on exit: " + Libro.books);
+        Utente.saveUsers(Utente.users, new File(Utente.FILE_PATH));
+        System.out.println("Users saved on exit: " + Utente.users);
+        Prestito.savePrestiti(Prestito.prestiti, new File(Prestito.FILE_PATH));
+        System.out.println("Prestiti saved on exit: " + Prestito.prestiti);
     }
 
     static void setRoot(String fxml) throws IOException {
@@ -42,6 +48,8 @@ public class App extends Application {
 
     public static void main(String[] args) {
         System.out.println("Books saved on last exit: " + Libro.books);
+        System.out.println("Users saved on last exit: " + Utente.users);
+        System.out.println("Prestiti saved on last exit: " + Prestito.prestiti);
         launch();
     }
 }

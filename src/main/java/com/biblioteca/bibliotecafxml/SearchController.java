@@ -22,7 +22,7 @@ public class SearchController {
     private TextField txtParam;
     @FXML
     private Button btnSearch;
-    
+
     @FXML
     private void loadPrimary() throws IOException, Exception {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("primary.fxml"));
@@ -36,27 +36,23 @@ public class SearchController {
 
     @FXML
     private void searchBooksOnClick(final ActionEvent e) {
-        try {
-            if (txtParam.getText().trim().length() == 0) {
-                new Alert(Alert.AlertType.ERROR, "Wrong argument!").showAndWait();
-                return;
-            }
-
-            String c = txtParam.getText();
-            Libro f = Libro.books.get(c);
-
-            if (f == null) {
-                Alert bookNotFound = new Alert(Alert.AlertType.ERROR, "No books found with the code: " + c);
-                bookNotFound.showAndWait();
-                txtParam.setText("");
-                return;
-            }
-            
-            Alert bookFound = new Alert(Alert.AlertType.INFORMATION, "Books found: " + f);
-            bookFound.showAndWait();
-            txtParam.setText("");
-        } catch (NumberFormatException ex) {
-        } catch (IllegalArgumentException ex) {
+        if (txtParam.getText().trim().length() == 0) {
+            new Alert(Alert.AlertType.ERROR, "Wrong argument!").showAndWait();
+            return;
         }
+
+        String c = txtParam.getText();
+        Libro f = Libro.books.get(c);
+
+        if (f == null) {
+            Alert bookNotFound = new Alert(Alert.AlertType.ERROR, "No books found with the code: " + c);
+            bookNotFound.showAndWait();
+            txtParam.setText("");
+            return;
+        }
+
+        Alert bookFound = new Alert(Alert.AlertType.INFORMATION, "Books found: " + f);
+        bookFound.showAndWait();
+        txtParam.setText("");
     }
 }
