@@ -13,6 +13,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
@@ -27,7 +28,7 @@ import model.Utente;
  * @author seba2
  */
 public class MakeprestitoController implements Initializable {
-    
+
     private String selectedUser;
     private String selectedBook;
     private LocalDate date1; // inizio
@@ -45,7 +46,7 @@ public class MakeprestitoController implements Initializable {
     private Button btnNewPrestito;
     @FXML
     private Button btnBackToOption;
-    
+
     @FXML
     private void switchToPrimary() throws IOException, Exception {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("primary.fxml"));
@@ -56,39 +57,43 @@ public class MakeprestitoController implements Initializable {
         stage.setScene(scene);
         stage.show();
     }
-    
+
     @FXML
     private void getSelectedUser() {
         selectedUser = lstUtenti.getSelectionModel().getSelectedItem();
         System.out.println("selectedUser: " + selectedUser);
     }
-    
+
     @FXML
     private void getSelectedBook() {
         selectedBook = lstLibri.getSelectionModel().getSelectedItem();
         System.out.println("selectedBook: " + selectedBook);
     }
-    
+
     @FXML
     private void setEndDate() {
         date2 = dateFine.getValue();
         System.out.println("End date: " + date2);
     }
-    
+
     @FXML
     private void makePrestito() {
         if (selectedUser != null || selectedBook != null || date2 != null) {
             Libro l = Libro.books.get(selectedBook);
             Utente u = Utente.users.get(selectedUser);
             Prestito p = new Prestito(l, u, date2);
-            
-            Prestito.prestiti.put(u.getUsername(), p);
-            
-            System.out.println("Prestito done: " + p.toString());
-            System.out.println("Prestiti: " + Prestito.prestiti);
+
+            if (Prestito.prestiti.containsKey(l.getTitolo())) {
+                new Alert(Alert.AlertType.ERROR, l.getTitolo() + " already on loan").showAndWait();
+                System.out.println(l.getTitolo() + " already on loan");
+            } else {
+                Prestito.prestiti.put(l.getTitolo(), p);
+                System.out.println("Prestito done: " + p.toString());
+                System.out.println("Prestiti: " + Prestito.prestiti);
+            }
         }
     }
-    
+
     private void initializeLstUser() {
         for (Utente utente : Utente.users.values()) {
             if (utente != null) {
@@ -96,7 +101,7 @@ public class MakeprestitoController implements Initializable {
             }
         }
     }
-    
+
     private void initializeLstBooks() {
         for (Libro libro : Libro.books.values()) {
             if (libro != null) {
@@ -104,7 +109,7 @@ public class MakeprestitoController implements Initializable {
             }
         }
     }
-    
+
     private void initializeDatePicker() {
         dateInizio.setValue(LocalDate.now());
         date1 = dateInizio.getValue();
@@ -113,6 +118,7 @@ public class MakeprestitoController implements Initializable {
 
     /**
      * Initializes the controller class.
+     *
      * @param url
      * @param rb
      */
@@ -121,6 +127,6 @@ public class MakeprestitoController implements Initializable {
         initializeLstUser();
         initializeLstBooks();
         initializeDatePicker();
-    }    
-    
+    }
+
 }

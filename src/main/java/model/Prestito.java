@@ -31,8 +31,8 @@ public class Prestito implements Comparable<Prestito>, Serializable {
     public Prestito(Libro libro, Utente utente, LocalDate fine) {
         this.libro = Objects.requireNonNull(libro, "libro non specificato");
         this.utente = Objects.requireNonNull(utente, "utente non specificato");
-        inizio = LocalDate.now();
         this.fine = Objects.requireNonNull(fine, "utente non specificato");
+        inizio = LocalDate.now();
     }
 
     /**
@@ -71,15 +71,6 @@ public class Prestito implements Comparable<Prestito>, Serializable {
         return fine;
     }
 
-//    /**
-//     * Set the value of fine
-//     *
-//     * @param fine new value of fine
-//     */
-//    public void setFine(LocalDateTime fine) {
-//        this.fine = fine;
-//    }
-
     /**
      * Get the value of inCorso
      *
@@ -87,6 +78,10 @@ public class Prestito implements Comparable<Prestito>, Serializable {
      */
     public boolean isInCorso() {
         return fine == null;
+    }
+    
+    public String getUtenteName() {
+        return utente.getNome();
     }
     
     private static Map<String, Prestito> loadPrestiti(final File f) {

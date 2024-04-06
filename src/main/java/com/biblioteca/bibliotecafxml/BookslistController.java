@@ -7,7 +7,6 @@ package com.biblioteca.bibliotecafxml;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-import javafx.application.Platform;
 import javafx.beans.Observable;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -20,6 +19,7 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.ListView;
 import javafx.stage.Stage;
 import model.Libro;
+import model.Prestito;
 
 /**
  * FXML Controller class
@@ -69,11 +69,11 @@ public class BookslistController implements Initializable {
         stage.setScene(scene);
         stage.show();
     }
-    
+
     private void switchToRemove(String str) throws IOException, Exception {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("removebook.fxml"));
         Parent root = loader.load();
-        
+
         RemovebookController rmc = loader.getController();
         rmc.txtSearch.setText(str);
 
@@ -93,37 +93,44 @@ public class BookslistController implements Initializable {
 
     /**
      * Initializes the controller
+     *
      * @param url
      * @param rb
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         showBooks();
-        
+
         lstBooks.getSelectionModel().selectedItemProperty().addListener((final Observable e) -> {
             String si = lstBooks.getSelectionModel().getSelectedItem();
             Libro l = Libro.books.get(si);
-            
+
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Do you want to delete it? \n\n"
                     + "Yes to go to the remove scene. \n"
                     + "No to do nothing. \n");
+            
+            if (Prestito.prestiti.containsKey(l.getTitolo())) {
+                Prestito p = Prestito.prestiti.get(si);
+                alert.setHeaderText(l.toString() + "\nBook on loan by " + p.getUtenteName());
+            } else 
                 alert.setHeaderText(l.toString());
 
-                ButtonType btnOK = new ButtonType("Si");
-                ButtonType btnNO = new ButtonType("No");
+            ButtonType btnOK = new ButtonType("Si");
+            ButtonType btnNO = new ButtonType("No");
 
-                alert.getButtonTypes().setAll(btnOK, btnNO);
+            alert.getButtonTypes().setAll(btnOK, btnNO);
 
-                alert.showAndWait().ifPresentOrElse(result -> {
-                    if (result == btnOK) {
-                        try {
-                            switchToRemove(si);
-                        } catch (Exception ex) {}
-                    } else if (result == btnNO) {
+            alert.showAndWait().ifPresentOrElse(result -> {
+                if (result == btnOK) {
+                    try {
+                        switchToRemove(si);
+                    } catch (Exception ex) {
                     }
-                }, () -> {
-                    System.out.println("No button was clicked");
-                });
+                } else if (result == btnNO) {
+                }
+            }, () -> {
+                System.out.println("No button was clicked");
+            });
         });
     }
 }
