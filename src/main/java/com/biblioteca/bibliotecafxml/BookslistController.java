@@ -42,7 +42,7 @@ public class BookslistController implements Initializable {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("primary.fxml"));
         Parent root = loader.load();
 
-        Stage stage = (Stage) lstBooks.getScene().getWindow();
+        Stage stage = (Stage) btnBackToOption.getScene().getWindow();
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
@@ -53,7 +53,7 @@ public class BookslistController implements Initializable {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("addbook.fxml"));
         Parent root = loader.load();
 
-        Stage stage = (Stage) lstBooks.getScene().getWindow();
+        Stage stage = (Stage) btnBackToAdd.getScene().getWindow();
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
@@ -64,7 +64,7 @@ public class BookslistController implements Initializable {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("search.fxml"));
         Parent root = loader.load();
 
-        Stage stage = (Stage) lstBooks.getScene().getWindow();
+        Stage stage = (Stage) btnBackToSearch.getScene().getWindow();
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
@@ -109,7 +109,7 @@ public class BookslistController implements Initializable {
                     + "Yes to go to the remove scene. \n"
                     + "No to do nothing. \n");
             
-            if (Prestito.prestiti.containsKey(l.getTitolo())) {
+            if (Prestito.prestiti.containsKey(l.getTitolo()) && Prestito.prestiti.get(l.getTitolo()) != null) {
                 Prestito p = Prestito.prestiti.get(si);
                 alert.setHeaderText(l.toString() + "\nBook on loan by " + p.getUtenteName());
             } else 

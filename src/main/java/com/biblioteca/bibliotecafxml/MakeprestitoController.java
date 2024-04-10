@@ -78,16 +78,20 @@ public class MakeprestitoController implements Initializable {
 
     @FXML
     private void makePrestito() {
-        if (selectedUser != null || selectedBook != null || date2 != null) {
+        if (selectedUser == null || selectedBook == null || date2 == null) {
+            new Alert(Alert.AlertType.ERROR, "Wrong arguments!").showAndWait();
+        } else {
             Libro l = Libro.books.get(selectedBook);
             Utente u = Utente.users.get(selectedUser);
             Prestito p = new Prestito(l, u, date2);
 
-            if (Prestito.prestiti.containsKey(l.getTitolo())) {
-                new Alert(Alert.AlertType.ERROR, l.getTitolo() + " already on loan").showAndWait();
+            if (Prestito.prestiti.containsKey(l.getTitolo()) && Prestito.prestiti.get(l.getTitolo()) != null ) {
+                Prestito pp = Prestito.prestiti.get(selectedBook);
+                new Alert(Alert.AlertType.ERROR, l.getTitolo() + " already on loan by " + pp.getUtenteName()).showAndWait();
                 System.out.println(l.getTitolo() + " already on loan");
             } else {
                 Prestito.prestiti.put(l.getTitolo(), p);
+                new Alert(Alert.AlertType.INFORMATION, "Done!").showAndWait();
                 System.out.println("Prestito done: " + p.toString());
                 System.out.println("Prestiti: " + Prestito.prestiti);
             }

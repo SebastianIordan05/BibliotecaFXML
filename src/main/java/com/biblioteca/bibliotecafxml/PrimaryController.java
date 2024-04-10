@@ -28,6 +28,8 @@ public class PrimaryController {
     private Button btnNewPrestito;
     @FXML
     private Button btnPrestiti;
+    @FXML
+    private Button btnEndPrestiti;
     
     @FXML
     private void switchToSearch() throws IOException, Exception {
@@ -98,6 +100,17 @@ public class PrimaryController {
     @FXML
     private void switchToPrestiti() throws IOException, Exception {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("listprestiti.fxml"));
+        Parent root = loader.load();
+
+        Stage stage = (Stage) btnSearch.getScene().getWindow();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+    
+    @FXML
+    private void switchToEndPrestiti() throws IOException, Exception {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("endprestito.fxml"));
         Parent root = loader.load();
 
         Stage stage = (Stage) btnSearch.getScene().getWindow();
