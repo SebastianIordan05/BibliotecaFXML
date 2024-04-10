@@ -18,6 +18,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import model.Libro;
+import model.Prestito;
 
 /**
  * FXML Controller class
@@ -55,6 +56,11 @@ public class RemovebookController implements Initializable {
         if (f == null) {
             new Alert(Alert.AlertType.ERROR, "No books found with the code: " + c).showAndWait();
             txtSearch.setText("");
+            return;
+        }
+        
+        if (Prestito.prestiti.get(f.getTitolo()) != null) {
+            new Alert(Alert.AlertType.ERROR, "You cant delete a book that is in loan to someone!").showAndWait();
             return;
         }
 

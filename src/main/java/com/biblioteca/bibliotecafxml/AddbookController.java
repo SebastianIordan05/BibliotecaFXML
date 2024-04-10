@@ -38,7 +38,7 @@ public class AddbookController {
         Libro l = new Libro(txtBook.getText(), txtBookAuthor.getText());
         
         Libro.books.put(txtBook.getText(), l);
-
+        new Alert(Alert.AlertType.INFORMATION, "Book added!").showAndWait();
         
         txtBook.setText("");
         txtBookAuthor.setText("");

@@ -17,6 +17,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import model.Libro;
 import model.Prestito;
@@ -46,6 +47,8 @@ public class MakeprestitoController implements Initializable {
     private Button btnNewPrestito;
     @FXML
     private Button btnBackToOption;
+    @FXML
+    private TextField txtPassword;
 
     @FXML
     private void switchToPrimary() throws IOException, Exception {
@@ -84,16 +87,20 @@ public class MakeprestitoController implements Initializable {
             Libro l = Libro.books.get(selectedBook);
             Utente u = Utente.users.get(selectedUser);
             Prestito p = new Prestito(l, u, date2);
-
-            if (Prestito.prestiti.containsKey(l.getTitolo()) && Prestito.prestiti.get(l.getTitolo()) != null ) {
-                Prestito pp = Prestito.prestiti.get(selectedBook);
-                new Alert(Alert.AlertType.ERROR, l.getTitolo() + " already on loan by " + pp.getUtenteName()).showAndWait();
-                System.out.println(l.getTitolo() + " already on loan");
+            
+            if (!txtPassword.getText().equals(u.getPassword())) {
+                new Alert(Alert.AlertType.INFORMATION, "Wrong password!").showAndWait();
             } else {
-                Prestito.prestiti.put(l.getTitolo(), p);
-                new Alert(Alert.AlertType.INFORMATION, "Done!").showAndWait();
-                System.out.println("Prestito done: " + p.toString());
-                System.out.println("Prestiti: " + Prestito.prestiti);
+                if (Prestito.prestiti.containsKey(l.getTitolo()) && Prestito.prestiti.get(l.getTitolo()) != null) {
+                    Prestito pp = Prestito.prestiti.get(selectedBook);
+                    new Alert(Alert.AlertType.ERROR, l.getTitolo() + " already on loan by " + pp.getUtenteName()).showAndWait();
+                    System.out.println(l.getTitolo() + " already on loan");
+                } else {
+                    Prestito.prestiti.put(l.getTitolo(), p);
+                    new Alert(Alert.AlertType.INFORMATION, "Done!").showAndWait();
+                    System.out.println("Prestito done: " + p.toString());
+                    System.out.println("Prestiti: " + Prestito.prestiti);
+                }
             }
         }
     }

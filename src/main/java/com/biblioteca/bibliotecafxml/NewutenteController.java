@@ -63,6 +63,7 @@ public class NewutenteController implements Initializable {
         Utente u = new Utente(txtSurname.getText(), txtName.getText(), txtPassword.getText(), txtUsername.getText());
         Utente.users.put(txtUsername.getText(), u);
         
+        new Alert(Alert.AlertType.INFORMATION, "User created!").showAndWait();
         System.out.println("User created: " + u.toString());
         System.out.println("Users: " + Utente.users);
         

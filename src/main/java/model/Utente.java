@@ -96,7 +96,7 @@ public class Utente implements Comparable<Utente>, Serializable {
 
     @Override
     public String toString() {
-        return "Utente " + codice + ": " + cognome + " " + nome;
+        return "Utente " + codice + ": " + cognome + " " + nome + ", password: " + password;
     }
 
     @Override
