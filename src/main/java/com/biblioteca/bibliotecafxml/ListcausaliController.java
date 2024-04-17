@@ -15,17 +15,17 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.stage.Stage;
-import model.Prestito;
+import model.Causale;
 
 /**
  * FXML Controller class
  *
  * @author seba2
  */
-public class ListprestitiController implements Initializable {
+public class ListcausaliController implements Initializable {
 
     @FXML
-    private ListView<String> lstPrestiti;
+    private ListView<String> lstCausali;
     @FXML
     private Button btnBackToOption;
     
@@ -40,10 +40,10 @@ public class ListprestitiController implements Initializable {
         stage.show();
     }
     
-    private void showPrestiti() {
-        for (Prestito prestito : Prestito.prestiti.values()) {
-            if (prestito != null) {
-                lstPrestiti.getItems().add(prestito.toString());
+    private void showCausali() {
+        for (Causale c : Causale.causali.values()) {
+            if (c != null) {
+                lstCausali.getItems().add(c.toString());
             }
         }
     }
@@ -55,7 +55,7 @@ public class ListprestitiController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        showPrestiti();
+        showCausali();
     }    
     
 }

@@ -7,6 +7,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import java.io.IOException;
+import model.Causale;
 import model.Libro;
 import model.Prestito;
 import model.Utente;
@@ -40,6 +41,8 @@ public class App extends Application {
         System.out.println("Users saved on exit: " + Utente.users);
         Prestito.savePrestiti(Prestito.prestiti, new File(Prestito.FILE_PATH));
         System.out.println("Prestiti saved on exit: " + Prestito.prestiti);
+        Causale.saveCausali(Causale.causali, new File(Causale.FILE_PATH));
+        System.out.println("Causali saved on exit: " + Causale.causali);
     }
 
     static void setRoot(String fxml) throws IOException {
@@ -50,6 +53,7 @@ public class App extends Application {
         System.out.println("Books saved on last exit: " + Libro.books);
         System.out.println("Users saved on last exit: " + Utente.users);
         System.out.println("Prestiti saved on last exit: " + Prestito.prestiti);
+        System.out.println("Causali saved on last exit: " + Causale.causali);
         launch();
     }
 }

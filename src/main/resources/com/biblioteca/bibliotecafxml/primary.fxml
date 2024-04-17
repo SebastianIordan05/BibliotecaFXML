@@ -63,6 +63,12 @@
                   <Font size="18.0" />
                </font>
             </Button>
+            <Label prefHeight="17.0" prefWidth="37.0" />
+            <Button fx:id="btnCausali" mnemonicParsing="false" onAction="#switchToCausali" text="causali">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Button>
          </children>
       </VBox>
    </children>

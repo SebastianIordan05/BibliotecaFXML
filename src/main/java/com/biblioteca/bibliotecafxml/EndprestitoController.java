@@ -14,9 +14,11 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import model.Causale;
 import model.Prestito;
 
 /**
@@ -71,9 +73,31 @@ public class EndprestitoController implements Initializable {
             Prestito p = Prestito.prestiti.get(selectedBook);
             if (p != null) {
                 if (p.getUtente().getPassword().equals(txtPassword.getText())) {
-                    Prestito.prestiti.replace(selectedBook, null);
-                    System.out.println(Prestito.prestiti);
-                    new Alert(Alert.AlertType.INFORMATION, "Loan terminated with success!").showAndWait();
+                    Causale c = new Causale(selectedCausale, p.getLibro(), true);
+                    Causale.causali.put(selectedBook, c);
+                    System.out.println("Causali: " + Causale.causali);
+                    
+//                    Prestito.prestiti.replace(selectedBook, null);
+                    Prestito.prestiti.remove(selectedBook);
+                    System.out.println("Prestiti: " + Prestito.prestiti);
+                    
+                    ButtonType btnOK = new ButtonType("Yes");
+                    ButtonType btnNO = new ButtonType("No");
+
+                    Alert a = new Alert(Alert.AlertType.INFORMATION, "Done!\nDo you want to end another loan?");
+
+                    a.getButtonTypes().setAll(btnOK, btnNO);
+
+                    a.showAndWait().ifPresentOrElse(result -> {
+                        if (result == btnNO) {
+                            try {
+                                switchToPrimary();
+                            } catch (Exception ex) {
+                            }
+                        }
+                    }, () -> {
+                        System.out.println("No button was clicked");
+                    });
                 } else {
                     new Alert(Alert.AlertType.ERROR, "Wrong password!").showAndWait();
                 }

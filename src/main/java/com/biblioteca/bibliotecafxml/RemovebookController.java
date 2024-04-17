@@ -15,8 +15,11 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import model.Causale;
 import model.Libro;
 import model.Prestito;
 
@@ -26,11 +29,17 @@ import model.Prestito;
  * @author iordan.sebastian
  */
 public class RemovebookController implements Initializable {
+    
+    private String selectedCausale;
 
     @FXML
     public TextField txtSearch;
     @FXML
     private Button btnDelete;
+    @FXML
+    private Button btnBackToOption;
+    @FXML
+    private ChoiceBox<String> chCausali;
 
     @FXML
     private void switchToPrimary() throws IOException, Exception {
@@ -45,7 +54,7 @@ public class RemovebookController implements Initializable {
 
     @FXML
     private void searchBooksOnClick(final ActionEvent e) {
-        if (txtSearch.getText().trim().length() == 0) {
+        if (txtSearch.getText().trim().length() == 0 || selectedCausale == null) {
             new Alert(Alert.AlertType.ERROR, "Wrong argument!").showAndWait();
             return;
         }
@@ -58,21 +67,55 @@ public class RemovebookController implements Initializable {
             txtSearch.setText("");
             return;
         }
-        
+
         if (Prestito.prestiti.get(f.getTitolo()) != null) {
             new Alert(Alert.AlertType.ERROR, "You cant delete a book that is in loan to someone!").showAndWait();
             return;
         }
 
-        new Alert(Alert.AlertType.INFORMATION, "Books found: " + f + ", Book removed!").showAndWait();
+        ButtonType btnOK = new ButtonType("Yes");
+        ButtonType btnNO = new ButtonType("No");
+
+        Alert a = new Alert(Alert.AlertType.INFORMATION, "Books found: " + f + ", Book removed!\nDo you want to remove another book?");
+
+        a.getButtonTypes().setAll(btnOK, btnNO);
+
+        a.showAndWait().ifPresentOrElse(result -> {
+            if (result == btnNO) {
+                try {
+                    switchToPrimary();
+                } catch (Exception ex) {
+                }
+            }
+        }, () -> {
+            System.out.println("No button was clicked");
+        });
+
         System.out.println("Book removed: " + f.toString());
+
+//        Libro.books.replace(c, null);
+        Libro.books.remove(c);
+        Causale ca = new Causale(selectedCausale, f, false);
+        Causale.causali.put(f.getTitolo(), ca);
         
-        Libro.books.replace(c, null);
-        if (f.getCodice() == Libro.lastCodice)
+        System.out.println("Causale: " + ca.toString());
+        
+        if (f.getCodice() == Libro.lastCodice) {
             Libro.lastCodice--;
-        
+        }
+
         System.out.println("New Books: " + Libro.books);
         txtSearch.setText("");
+    }
+    
+    @FXML
+    private void getSelectedCausale() {
+        selectedCausale = chCausali.getSelectionModel().getSelectedItem();
+        System.out.println("selectedUser: " + selectedCausale);
+    }
+    
+    private void initializeLstCausali() {
+        chCausali.getItems().addAll("LIbro usurato o danneggiato", "Libro perso");
     }
 
     /**
@@ -83,7 +126,7 @@ public class RemovebookController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        initializeLstCausali();
     }
 
 }

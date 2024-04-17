@@ -14,6 +14,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import model.Utente;
@@ -37,7 +38,7 @@ public class NewutenteController implements Initializable {
     private TextField txtSurname;
     @FXML
     private TextField txtPassword;
-    
+
     @FXML
     private void loadPrimary() throws IOException, Exception {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("primary.fxml"));
@@ -48,39 +49,57 @@ public class NewutenteController implements Initializable {
         stage.setScene(scene);
         stage.show();
     }
-    
+
     @FXML
     private void newUtente() {
-        if (txtUsername.getText().trim().length() == 0 || txtName.getText().trim().length() == 0 ||
-                txtSurname.getText().trim().length() == 0 || txtPassword.getText().trim().length() == 0) {
+        if (txtUsername.getText().trim().length() == 0 || txtName.getText().trim().length() == 0
+                || txtSurname.getText().trim().length() == 0 || txtPassword.getText().trim().length() == 0) {
 
             Alert wrongNameOrAuthor = new Alert(Alert.AlertType.ERROR, "Wrong arguments");
             wrongNameOrAuthor.showAndWait();
 
             return;
         }
-        
+
         Utente u = new Utente(txtSurname.getText(), txtName.getText(), txtPassword.getText(), txtUsername.getText());
         Utente.users.put(txtUsername.getText(), u);
-        
-        new Alert(Alert.AlertType.INFORMATION, "User created!").showAndWait();
+
+        ButtonType btnOK = new ButtonType("Yes");
+        ButtonType btnNO = new ButtonType("No");
+
+        Alert a = new Alert(Alert.AlertType.INFORMATION, "User created!\nDo you want to create another user?");
+
+        a.getButtonTypes().setAll(btnOK, btnNO);
+
+        a.showAndWait().ifPresentOrElse(result -> {
+            if (result == btnNO) {
+                try {
+                    loadPrimary();
+                } catch (Exception ex) {
+                }
+            }
+        }, () -> {
+            System.out.println("No button was clicked");
+        });
+
         System.out.println("User created: " + u.toString());
         System.out.println("Users: " + Utente.users);
-        
+
         txtUsername.setText("");
         txtName.setText("");
         txtSurname.setText("");
         txtPassword.setText("");
     }
-
+    
     /**
      * Initializes the controller class.
+     *
      * @param url
      * @param rb
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-    }    
-    
+    }
+
 }

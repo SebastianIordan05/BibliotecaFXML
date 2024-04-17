@@ -24,7 +24,7 @@ public class Prestito implements Comparable<Prestito>, Serializable {
     private final Utente utente;
     private final LocalDate inizio;
     private final LocalDate fine;
-    
+
     final public static String FILE_PATH = "./.prestiti";
     public final static Map<String, Prestito> prestiti = loadPrestiti(new File(FILE_PATH));
 
@@ -79,11 +79,11 @@ public class Prestito implements Comparable<Prestito>, Serializable {
     public boolean isInCorso() {
         return fine == null;
     }
-    
+
     public String getUtenteName() {
         return utente.getNome();
     }
-    
+
     private static Map<String, Prestito> loadPrestiti(final File f) {
         try {
             if (!f.exists()) {
@@ -162,7 +162,10 @@ public class Prestito implements Comparable<Prestito>, Serializable {
 
     @Override
     public String toString() {
-        return "Prestito di " + libro + " ad " + utente + ", " + inizio + "/" + (fine == null ? "in corso" : fine);
+//        return "Prestito di " + libro + " ad " + utente + ", " + inizio + "/" + (fine == null ? "in corso" : fine);
+
+        return "Il libro: " + libro.getTitolo() + " è preso in prestito da: " + utente.getNome()
+                + ", dal giorno: " + inizio + " al giorno " + fine;
     }
 
     private static final Comparator<LocalDate> nullSafeLocalDate = Comparator.nullsLast(Comparator.naturalOrder());
@@ -172,10 +175,4 @@ public class Prestito implements Comparable<Prestito>, Serializable {
     public int compareTo(Prestito o) {
         return byLibroAndFine.compare(this, o);
     }
-    
-    public String prestito() {
-        return "Il libro: " + libro.getTitolo() + " è preso in prestito da: " + utente.getNome() 
-                + ", dal giorno: " + inizio + " al giorno " + fine;
-    }
-
 }

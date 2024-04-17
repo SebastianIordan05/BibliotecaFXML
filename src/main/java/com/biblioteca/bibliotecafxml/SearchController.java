@@ -8,6 +8,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import model.Libro;
@@ -51,8 +52,25 @@ public class SearchController {
             return;
         }
 
-        Alert bookFound = new Alert(Alert.AlertType.INFORMATION, "Books found: " + f);
-        bookFound.showAndWait();
+        ButtonType btnOK = new ButtonType("Yes");
+        ButtonType btnNO = new ButtonType("No");
+
+        Alert a = new Alert(Alert.AlertType.INFORMATION, "Book found with the name: " + c + "!\nDo you want to search another book?");
+
+        a.getButtonTypes().setAll(btnOK, btnNO);
+
+        a.showAndWait().ifPresentOrElse(result -> {
+            if (result == btnNO) {
+                try {
+                    loadPrimary();
+                } catch (Exception ex) {
+                }
+            }
+        }, () -> {
+            System.out.println("No button was clicked");
+        });
+        
+        
         txtParam.setText("");
     }
 }

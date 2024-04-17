@@ -118,4 +118,15 @@ public class PrimaryController {
         stage.setScene(scene);
         stage.show();
     }
+    
+    @FXML
+    private void switchToCausali() throws IOException, Exception {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("listcausali.fxml"));
+        Parent root = loader.load();
+
+        Stage stage = (Stage) btnSearch.getScene().getWindow();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
 }

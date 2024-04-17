@@ -8,6 +8,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import model.Libro;
@@ -24,6 +25,17 @@ public class AddbookController {
     private TextField txtBookAuthor;
     @FXML
     private Button btnAdd;
+    
+    @FXML
+    private void switchToPrimary() throws IOException, Exception {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("primary.fxml"));
+        Parent root = loader.load();
+
+        Stage stage = (Stage) txtBook.getScene().getWindow();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
 
     @FXML
     public void checkAndAdd(final ActionEvent e) {
@@ -38,20 +50,26 @@ public class AddbookController {
         Libro l = new Libro(txtBook.getText(), txtBookAuthor.getText());
         
         Libro.books.put(txtBook.getText(), l);
-        new Alert(Alert.AlertType.INFORMATION, "Book added!").showAndWait();
+        
+        ButtonType btnOK = new ButtonType("Yes");
+        ButtonType btnNO = new ButtonType("No");
+
+        Alert a = new Alert(Alert.AlertType.INFORMATION, "Book added!\nDo you want to add another book?");
+
+        a.getButtonTypes().setAll(btnOK, btnNO);
+
+        a.showAndWait().ifPresentOrElse(result -> {
+            if (result == btnNO) {
+                try {
+                    switchToPrimary();
+                } catch (Exception ex) {
+                }
+            }
+        }, () -> {
+            System.out.println("No button was clicked");
+        });
         
         txtBook.setText("");
         txtBookAuthor.setText("");
-    }
-    
-    @FXML
-    private void switchToPrimary() throws IOException, Exception {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("primary.fxml"));
-        Parent root = loader.load();
-
-        Stage stage = (Stage) txtBook.getScene().getWindow();
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
     }
 }

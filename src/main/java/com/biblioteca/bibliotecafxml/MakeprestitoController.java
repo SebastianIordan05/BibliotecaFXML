@@ -15,9 +15,11 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
+//import javafx.scene.control.TextInputDialog;
 import javafx.stage.Stage;
 import model.Libro;
 import model.Prestito;
@@ -82,24 +84,47 @@ public class MakeprestitoController implements Initializable {
     @FXML
     private void makePrestito() {
         if (selectedUser == null || selectedBook == null || date2 == null) {
-            new Alert(Alert.AlertType.ERROR, "Wrong arguments!").showAndWait();
+            new Alert(Alert.AlertType.ERROR, "You have not completed all the necessary fields!").showAndWait();
         } else {
-            Libro l = Libro.books.get(selectedBook);
-            Utente u = Utente.users.get(selectedUser);
-            Prestito p = new Prestito(l, u, date2);
-            
-            if (!txtPassword.getText().equals(u.getPassword())) {
-                new Alert(Alert.AlertType.INFORMATION, "Wrong password!").showAndWait();
+            int confronto = date1.compareTo(date2);
+            if (confronto > 0) {
+                new Alert(Alert.AlertType.ERROR, "Date1 can't be > than date2").showAndWait();
             } else {
-                if (Prestito.prestiti.containsKey(l.getTitolo()) && Prestito.prestiti.get(l.getTitolo()) != null) {
-                    Prestito pp = Prestito.prestiti.get(selectedBook);
-                    new Alert(Alert.AlertType.ERROR, l.getTitolo() + " already on loan by " + pp.getUtenteName()).showAndWait();
-                    System.out.println(l.getTitolo() + " already on loan");
+                Libro l = Libro.books.get(selectedBook);
+                Utente u = Utente.users.get(selectedUser);
+                Prestito p = new Prestito(l, u, date2);
+
+                if (!txtPassword.getText().equals(u.getPassword())) {
+                    new Alert(Alert.AlertType.ERROR, "Wrong password!").showAndWait();
                 } else {
-                    Prestito.prestiti.put(l.getTitolo(), p);
-                    new Alert(Alert.AlertType.INFORMATION, "Done!").showAndWait();
-                    System.out.println("Prestito done: " + p.toString());
-                    System.out.println("Prestiti: " + Prestito.prestiti);
+                    if (Prestito.prestiti.containsValue(p)) {
+                        Prestito pp = Prestito.prestiti.get(selectedBook);
+                        new Alert(Alert.AlertType.ERROR, l.getTitolo() + " already on loan by " + pp.getUtenteName()).showAndWait();
+                        System.out.println(l.getTitolo() + " already on loan");
+                    } else {
+                        Prestito.prestiti.put(l.getTitolo(), p);
+
+                        ButtonType btnOK = new ButtonType("Yes");
+                        ButtonType btnNO = new ButtonType("No");
+
+                        Alert a = new Alert(Alert.AlertType.CONFIRMATION, "Done!\nDo you want to borrow another book?");
+
+                        a.getButtonTypes().setAll(btnOK, btnNO);
+
+                        a.showAndWait().ifPresentOrElse(result -> {
+                            if (result == btnNO) {
+                                try {
+                                    switchToPrimary();
+                                } catch (Exception ex) {
+                                }
+                            }
+                        }, () -> {
+                            System.out.println("No button was clicked");
+                        });
+
+                        System.out.println("Done: " + p.toString());
+                        System.out.println("Prestiti: " + Prestito.prestiti);
+                    }
                 }
             }
         }
