@@ -91,39 +91,43 @@ public class MakeprestitoController implements Initializable {
                 new Alert(Alert.AlertType.ERROR, "Date1 can't be > than date2").showAndWait();
             } else {
                 Libro l = Libro.books.get(selectedBook);
-                Utente u = Utente.users.get(selectedUser);
-                Prestito p = new Prestito(l, u, date2);
-
-                if (!txtPassword.getText().equals(u.getPassword())) {
-                    new Alert(Alert.AlertType.ERROR, "Wrong password!").showAndWait();
+                if (!l.isIsPrestabile()) {
+                    new Alert(Alert.AlertType.ERROR, "Book not borrowable!").showAndWait();
                 } else {
-                    if (Prestito.prestiti.containsValue(p)) {
-                        Prestito pp = Prestito.prestiti.get(selectedBook);
-                        new Alert(Alert.AlertType.ERROR, l.getTitolo() + " already on loan by " + pp.getUtenteName()).showAndWait();
-                        System.out.println(l.getTitolo() + " already on loan");
+                    Utente u = Utente.users.get(selectedUser);
+                    Prestito p = new Prestito(l, u, date2);
+
+                    if (!txtPassword.getText().equals(u.getPassword())) {
+                        new Alert(Alert.AlertType.ERROR, "Wrong password!").showAndWait();
                     } else {
-                        Prestito.prestiti.put(l.getTitolo(), p);
+                        if (Prestito.prestiti.containsValue(p)) {
+                            Prestito pp = Prestito.prestiti.get(selectedBook);
+                            new Alert(Alert.AlertType.ERROR, l.getTitolo() + " already on loan by " + pp.getUtenteName()).showAndWait();
+                            System.out.println(l.getTitolo() + " already on loan");
+                        } else {
+                            Prestito.prestiti.put(l.getTitolo(), p);
 
-                        ButtonType btnOK = new ButtonType("Yes");
-                        ButtonType btnNO = new ButtonType("No");
+                            ButtonType btnOK = new ButtonType("Yes");
+                            ButtonType btnNO = new ButtonType("No");
 
-                        Alert a = new Alert(Alert.AlertType.CONFIRMATION, "Done!\nDo you want to borrow another book?");
+                            Alert a = new Alert(Alert.AlertType.CONFIRMATION, "Done!\nDo you want to borrow another book?");
 
-                        a.getButtonTypes().setAll(btnOK, btnNO);
+                            a.getButtonTypes().setAll(btnOK, btnNO);
 
-                        a.showAndWait().ifPresentOrElse(result -> {
-                            if (result == btnNO) {
-                                try {
-                                    switchToPrimary();
-                                } catch (Exception ex) {
+                            a.showAndWait().ifPresentOrElse(result -> {
+                                if (result == btnNO) {
+                                    try {
+                                        switchToPrimary();
+                                    } catch (Exception ex) {
+                                    }
                                 }
-                            }
-                        }, () -> {
-                            System.out.println("No button was clicked");
-                        });
+                            }, () -> {
+                                System.out.println("No button was clicked");
+                            });
 
-                        System.out.println("Done: " + p.toString());
-                        System.out.println("Prestiti: " + Prestito.prestiti);
+                            System.out.println("Done: " + p.toString());
+                            System.out.println("Prestiti: " + Prestito.prestiti);
+                        }
                     }
                 }
             }

@@ -87,6 +87,7 @@ public class BookslistController implements Initializable {
         for (Libro libro : Libro.books.values()) {
             if (libro != null) {
                 lstBooks.getItems().add(libro.getTitolo());
+                System.out.println(libro.getTitolo());
             }
         }
     }

@@ -96,7 +96,7 @@ public class RemovebookController implements Initializable {
 //        Libro.books.replace(c, null);
         Libro.books.remove(c);
         Causale ca = new Causale(selectedCausale, f, false);
-        Causale.causali.put(f.getTitolo(), ca);
+        Causale.causali.put(ca.getCodice(), ca);
         
         System.out.println("Causale: " + ca.toString());
         

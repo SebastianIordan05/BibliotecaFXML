@@ -74,7 +74,7 @@ public class EndprestitoController implements Initializable {
             if (p != null) {
                 if (p.getUtente().getPassword().equals(txtPassword.getText())) {
                     Causale c = new Causale(selectedCausale, p.getLibro(), true);
-                    Causale.causali.put(selectedBook, c);
+                    Causale.causali.put(c.getCodice(), c);
                     System.out.println("Causali: " + Causale.causali);
                     
 //                    Prestito.prestiti.replace(selectedBook, null);

@@ -9,6 +9,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import model.Libro;
@@ -25,6 +26,8 @@ public class AddbookController {
     private TextField txtBookAuthor;
     @FXML
     private Button btnAdd;
+    @FXML
+    private CheckBox chkIsPrestabile;
     
     @FXML
     private void switchToPrimary() throws IOException, Exception {
@@ -47,7 +50,7 @@ public class AddbookController {
             return;
         }
         
-        Libro l = new Libro(txtBook.getText(), txtBookAuthor.getText());
+        Libro l = new Libro(txtBook.getText(), txtBookAuthor.getText(), chkIsPrestabile.isSelected());
         
         Libro.books.put(txtBook.getText(), l);
         

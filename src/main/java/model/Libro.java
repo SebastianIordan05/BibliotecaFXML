@@ -23,13 +23,15 @@ public class Libro implements Comparable<Libro>, Serializable {
 
     private final String titolo;
     private final String autore;
+    private final boolean isPrestabile;
 
     final public static String FILE_PATH = "./.books";
     public final static Map<String, Libro> books = loadBooks(new File(FILE_PATH));
 
-    public Libro(String titolo, String autore) {
+    public Libro(String titolo, String autore, boolean isPrestabile) {
         this.titolo = Objects.requireNonNull(titolo, "titolo non specificato");
         this.autore = Objects.requireNonNull(autore, "autore non specificato");
+        this.isPrestabile = Objects.requireNonNull(isPrestabile, "non specificato se il libro è prestabile");
         codice = ++lastCodice;
     }
 
@@ -58,6 +60,10 @@ public class Libro implements Comparable<Libro>, Serializable {
      */
     public String getAutore() {
         return autore;
+    }
+
+    public boolean isIsPrestabile() {
+        return isPrestabile;
     }
 
     @Override

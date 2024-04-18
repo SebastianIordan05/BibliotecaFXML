@@ -44,6 +44,7 @@ public class ListcausaliController implements Initializable {
         for (Causale c : Causale.causali.values()) {
             if (c != null) {
                 lstCausali.getItems().add(c.toString());
+                System.out.println(c.toString());
             }
         }
     }

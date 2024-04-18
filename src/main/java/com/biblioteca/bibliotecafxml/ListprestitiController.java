@@ -44,6 +44,7 @@ public class ListprestitiController implements Initializable {
         for (Prestito prestito : Prestito.prestiti.values()) {
             if (prestito != null) {
                 lstPrestiti.getItems().add(prestito.toString());
+                System.out.println(prestito.toString());
             }
         }
     }
