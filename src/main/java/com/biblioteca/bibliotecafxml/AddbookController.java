@@ -67,12 +67,13 @@ public class AddbookController {
                     switchToPrimary();
                 } catch (Exception ex) {
                 }
+            } else if (result == btnOK) {
+                txtBook.setText("");
+                txtBookAuthor.setText("");
+                chkIsPrestabile.setSelected(false);
             }
         }, () -> {
             System.out.println("No button was clicked");
         });
-        
-        txtBook.setText("");
-        txtBookAuthor.setText("");
     }
 }

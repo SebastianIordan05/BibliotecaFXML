@@ -69,6 +69,12 @@
                   <Font size="18.0" />
                </font>
             </Button>
+            <Label prefHeight="17.0" prefWidth="37.0" />
+            <Button fx:id="btnEditBook" mnemonicParsing="false" onAction="#switchToEditBook" text="edit book">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Button>
          </children>
       </VBox>
    </children>

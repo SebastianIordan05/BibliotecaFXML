@@ -66,6 +66,10 @@ public class Libro implements Comparable<Libro>, Serializable {
         return isPrestabile;
     }
 
+    public void setCodice(int codice) {
+        this.codice = codice;
+    }
+
     @Override
     public int hashCode() {
         int hash = 5;
@@ -93,7 +97,7 @@ public class Libro implements Comparable<Libro>, Serializable {
 
     @Override
     public String toString() {
-        return "Titolo: " + titolo + ", Autore: " + autore + ", Codice: " + codice;
+        return "Titolo: " + titolo + ", Autore: " + autore + ", Codice: " + codice + ", isPrestabile?" + isPrestabile;
     }
 
     @Override
