@@ -15,6 +15,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  *
@@ -34,9 +35,9 @@ public class Causale implements Serializable {
     public final static Map<Integer, Causale> causali = loadCausali(new File(FILE_PATH));
 
     public Causale(String motivazione, Libro libro, boolean prestito) {
-        this.motivazione = motivazione;
-        this.libro = libro;
-        this.prestito = prestito;
+        this.motivazione = Objects.requireNonNull(motivazione, "motivazione non specificata");
+        this.libro = Objects.requireNonNull(libro, "libro non specificato");
+        this.prestito = Objects.requireNonNull(prestito, "prestito non specificato");
         date = new Date();
         codice = ++lastCodice;
     }

@@ -3,79 +3,64 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.Pane?>
-<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.biblioteca.bibliotecafxml.PrimaryController">
    <children>
-      <Label layoutX="56.0" layoutY="187.0" text="option menu">
+      <Label layoutX="243.0" layoutY="61.0" text="Option menu">
+         <font>
+            <Font name="System Italic" size="18.0" />
+         </font>
+      </Label>
+      <Button fx:id="btnSearch" layoutX="82.0" layoutY="121.0" mnemonicParsing="false" onAction="#switchToSearch" text="search book">
+         <font>
+            <Font name="System" size="18.0" />
+         </font>
+      </Button>
+      <Button fx:id="btnSearch1" layoutX="92.0" layoutY="170.0" mnemonicParsing="false" onAction="#switchToAdd" text="add book">
          <font>
             <Font size="18.0" />
          </font>
-      </Label>
-      <VBox alignment="CENTER" layoutX="233.0" layoutY="13.0" prefHeight="113.0" prefWidth="135.0">
-         <children>
-            <Button fx:id="btnSearch" mnemonicParsing="false" onAction="#switchToSearch" text="search book">
-               <font>
-                  <Font name="System" size="18.0" />
-               </font>
-            </Button>
-            <Label prefHeight="17.0" prefWidth="37.0" />
-            <Button fx:id="btnSearch1" mnemonicParsing="false" onAction="#switchToAdd" text="add book">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </Button>
-            <Label prefHeight="17.0" prefWidth="37.0" />
-            <Button fx:id="btnBooksList" mnemonicParsing="false" onAction="#switchToList" text="books list">
-               <font>
-                  <Font size="18.0" />
-               </font></Button>
-            <Label prefHeight="17.0" prefWidth="37.0" />
-            <Button fx:id="btnDelete" mnemonicParsing="false" onAction="#switchToDelete" text="delete book">
-               <font>
-                  <Font size="18.0" />
-               </font></Button>
-            <Label prefHeight="17.0" prefWidth="37.0" />
-            <Button fx:id="btnNewUtente" mnemonicParsing="false" onAction="#switchToNewUtente" text="new utente">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </Button>
-            <Label prefHeight="17.0" prefWidth="37.0" />
-            <Button fx:id="btnNewPrestito" mnemonicParsing="false" onAction="#switchToNewPrestito" text="new prestito">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </Button>
-            <Label prefHeight="17.0" prefWidth="37.0" />
-            <Button fx:id="btnPrestiti" mnemonicParsing="false" onAction="#switchToPrestiti" text="prestiti">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </Button>
-         </children>
-      </VBox>
-      <VBox alignment="CENTER" layoutX="406.0" layoutY="18.0" prefHeight="366.0" prefWidth="123.0">
-         <children>
-            <Button fx:id="btnEndPrestiti" mnemonicParsing="false" onAction="#switchToEndPrestiti" text="end prestiti">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </Button>
-            <Label prefHeight="17.0" prefWidth="37.0" />
-            <Button fx:id="btnCausali" mnemonicParsing="false" onAction="#switchToCausali" text="causali">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </Button>
-            <Label prefHeight="17.0" prefWidth="37.0" />
-            <Button fx:id="btnEditBook" mnemonicParsing="false" onAction="#switchToEditBook" text="edit book">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </Button>
-         </children>
-      </VBox>
+      </Button>
+      <Button fx:id="btnBooksList" layoutX="245.0" layoutY="121.0" mnemonicParsing="false" onAction="#switchToList" text="books list">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Button>
+      <Button fx:id="btnDelete" layoutX="82.0" layoutY="269.0" mnemonicParsing="false" onAction="#switchToDelete" text="delete book">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Button>
+      <Button fx:id="btnNewUtente" layoutX="400.0" layoutY="121.0" mnemonicParsing="false" onAction="#switchToNewUtente" text="new utente">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Button>
+      <Button fx:id="btnNewPrestito" layoutX="395.0" layoutY="170.0" mnemonicParsing="false" onAction="#switchToNewPrestito" text="new prestito">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Button>
+      <Button fx:id="btnPrestiti" layoutX="241.0" layoutY="170.0" mnemonicParsing="false" onAction="#switchToPrestiti" text="prestiti list">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Button>
+      <Button fx:id="btnEndPrestiti" layoutX="399.0" layoutY="218.0" mnemonicParsing="false" onAction="#switchToEndPrestiti" text="end prestiti">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Button>
+      <Button fx:id="btnCausali" layoutX="242.0" layoutY="218.0" mnemonicParsing="false" onAction="#switchToCausali" text="causali list">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Button>
+      <Button fx:id="btnEditBook" layoutX="92.0" layoutY="218.0" mnemonicParsing="false" onAction="#switchToEditBook" text="edit book">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Button>
    </children>
 </Pane>
